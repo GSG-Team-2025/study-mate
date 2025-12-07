@@ -1,6 +1,9 @@
 import { Sidebar } from '@/components/ui/dashboard/sidebar'
 import { getUserMetadata, requireAuth } from '@/lib/auth/helpers'
 import { redirect } from 'next/navigation'
+import { createClient } from '@/lib/supabase/server'
+import { calculateProfileCompletion } from '@/features/profile/utils/completion'
+import { CompletionWidget } from '@/components/settings/CompletionWidget'
 
 export default async function DashboardLayout({
     children,
@@ -20,6 +23,16 @@ export default async function DashboardLayout({
         redirect('/auth/login')
     }
 
+    // 3. Fetch full profile for completion status
+    const supabase = await createClient()
+    const { data: profile } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('id', user.id)
+        .single()
+
+    const completion = profile ? calculateProfileCompletion(profile) : { percentage: 0, missingFields: [] }
+
     // Determine the most appropriate display name
     const displayName = userMeta.fullName || userMeta.email?.split('@')[0] || 'User'
 
@@ -29,8 +42,17 @@ export default async function DashboardLayout({
             <Sidebar userName={displayName} />
 
             {/* Main Content Area (Takes remaining width and adds margin for sidebar) */}
-            <main className="flex-grow p-4 lg:ml-64 lg:p-8">
+            <main className="flex-grow p-4 lg:ml-64 lg:p-8 relative">
                 {children}
+
+                {/* Floating Completion Widget (Visible if < 100%) */}
+                {completion.percentage < 100 && (
+                    <CompletionWidget
+                        percentage={completion.percentage}
+                        missingFields={completion.missingFields}
+                        compact={true}
+                    />
+                )}
             </main>
         </div>
     )

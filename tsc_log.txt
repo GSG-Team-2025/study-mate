@@ -1,9 +1,0 @@
-﻿src/app/api/lessons/[id]/complete/route.ts(57,28): error TS2345: Argument of type '"increment_xp"' is not assignable to parameter of type 'never'.
-src/app/api/lessons/[id]/complete/route.ts(69,30): error TS2345: Argument of type 'string | null' is not assignable to parameter of type 'string'.
-  Type 'null' is not assignable to type 'string'.
-src/app/api/resources/route.ts(14,94): error TS2339: Property 'errors' does not exist on type 'ZodError<{ page: number; limit: number; subjectId: string; type?: "Folder" | "File" | undefined; category?: "Books" | "Assignments" | "Labs" | "Slides" | "Projects" | "Other" | undefined; }>'.
-src/app/course/[id]/page.tsx(2,20): error TS2307: Cannot find module '@/components/Course/Course' or its corresponding type declarations.
-src/app/dashboard/layout.tsx(6,34): error TS2307: Cannot find module '@/components/settings/CompletionWidget' or its corresponding type declarations.
-src/app/dashboard/settings/page.tsx(3,32): error TS2307: Cannot find module '@/components/settings/SettingsLayout' or its corresponding type declarations.
-src/app/dashboard/todos/layout.tsx(3,27): error TS2307: Cannot find module '@/components/Profile/ProfileHeader' or its corresponding type declarations.
-src/app/profile/layout.tsx(3,27): error TS2307: Cannot find module '@/components/Profile/ProfileHeader' or its corresponding type declarations.

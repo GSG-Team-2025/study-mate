@@ -1,7 +1,7 @@
 
 import { NextRequest } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
-import { successResponse, errorResponse, handleApiError } from '@/lib/api-response';
+import { successResponse, errorResponse, handleApiError } from '@/lib/api/response';
 import { updateTaskSchema } from '@/lib/validators';
 
 export async function PATCH(
